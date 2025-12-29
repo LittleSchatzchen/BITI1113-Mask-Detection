@@ -137,6 +137,25 @@ canvas {
     box-sizing: border-box;
 }
 
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid #3e4a61; /* Garis halus untuk nampak kemas */
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+.footer p {
+    color: #888;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+.footer strong {
+    color: #e94560; /* Warna yang sama dengan tajuk utama awak */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .main-content {
