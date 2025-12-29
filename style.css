@@ -1,172 +1,174 @@
+:root {
+    --bg-color: #0a0b1e;
+    --card-bg: rgba(16, 18, 45, 0.9);
+    --neon-pink: #ff2d55;
+    --neon-blue: #00f2ff;
+    --neon-green: #39ff14;
+    --text-color: #ffffff;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a2e; /* Dark background */
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align content to the top */
-    min-height: 100vh;
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animasi Background Berbintik */
+.bg-animation {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%, #1b2735 0%, #090a0f 100%);
+    z-index: -1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
 }
 
 .container {
-    background-color: #16213e; /* Slightly lighter dark for container */
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+    max-width: 1000px;
     width: 100%;
-    max-width: 900px;
     text-align: center;
 }
 
-h1 {
-    color: #e94560; /* Highlight color for title */
+.neon-text {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+    font-size: 2.5rem;
     margin-bottom: 30px;
-    font-size: 2.5em;
 }
 
 .input-options {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px;
 }
 
-button, .custom-file-upload {
-    background-color: #0f3460;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
+.neon-btn {
+    background: transparent;
+    border: 2px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 12px 30px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    flex-shrink: 0; /* Prevent shrinking on flex container */
+    font-weight: bold;
+    transition: 0.3s;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
 }
 
-button:hover, .custom-file-upload:hover {
-    background-color: #1a569b;
-    transform: translateY(-2px);
+.neon-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-blue);
 }
 
-input[type="file"] {
-    display: none; /* Hide the default file input */
+.neon-btn.secondary {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
 }
+
+.neon-btn.secondary:hover {
+    background: var(--neon-pink);
+    color: #fff;
+}
+
+input[type="file"] { display: none; }
 
 .main-content {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping columns on smaller screens */
-    gap: 25px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
     margin-top: 20px;
 }
 
-.webcam-section, .results-section {
-    flex: 1;
-    min-width: 300px; /* Minimum width for responsiveness */
-    background-color: #0a1128;
-    border-radius: 10px;
+.card-glow {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-#webcam-container, #uploadedImageCanvas {
-    width: 100%;
-    max-width: 400px; /* Max width for webcam/image display */
-    height: auto;
-    border-radius: 8px;
-    overflow: hidden; /* Ensure content stays within border-radius */
-    margin: 0 auto 15px auto; /* Center and add margin below */
-    border: 2px solid #e94560; /* Border to highlight camera/image feed */
+.card-glow::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
 }
 
-canvas {
-    display: block; /* Remove extra space below canvas */
-    max-width: 100%;
-    height: auto;
-}
-
-#label-container {
-    text-align: left;
-    margin-top: 15px;
-}
-
-.prediction-item {
-    display: flex;
-    align-items: center;
+.card-header {
+    font-size: 0.9rem;
+    color: #aaa;
     margin-bottom: 15px;
-    font-size: 1.1em;
-    gap: 10px; /* Space between elements */
+    text-align: left;
 }
 
-.class-name {
-    width: 80px; /* Fixed width for class name */
-    text-transform: capitalize;
-    font-weight: bold;
-    color: #c0c0c0;
+#webcam-container, canvas {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 10px;
+    border: 1px solid var(--neon-blue);
 }
 
-.percentage {
-    width: 60px; /* Fixed width for percentage text */
-    text-align: right;
-    font-weight: bold;
-    color: #a0a0a0;
+/* Progress Bar Style */
+.prediction-item {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.class-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
 }
 
 .progress-bar-container {
-    flex-grow: 1; /* Take remaining space */
-    background-color: #3e4a61;
-    border-radius: 5px;
-    height: 18px;
+    background: #1a1a2e;
+    height: 12px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    width: 0%; /* Initial width */
-    background-color: #4CAF50; /* Default green */
-    border-radius: 5px;
-    transition: width 0.5s ease-out, background-color 0.5s ease-out;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Align text to the end */
-    padding-right: 5px;
-    box-sizing: border-box;
+    width: 0%;
+    transition: 0.5s ease;
+    box-shadow: 0 0 10px currentColor;
 }
 
+/* Footer Style */
 .footer {
-    margin-top: 40px;
-    padding: 20px;
-    border-top: 1px solid #3e4a61; /* Garis halus untuk nampak kemas */
-    text-align: center;
+    margin-top: auto;
+    padding: 40px 0 20px;
     width: 100%;
-    max-width: 900px;
+    text-align: center;
 }
 
 .footer p {
-    color: #888;
-    font-size: 0.9em;
-    letter-spacing: 0.5px;
+    color: #666;
+    font-size: 0.85rem;
 }
 
-.footer strong {
-    color: #e94560; /* Warna yang sama dengan tajuk utama awak */
+.highlight {
+    color: var(--neon-pink);
+    font-weight: bold;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-    .main-content {
-        flex-direction: column; /* Stack columns vertically */
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
+    .main-content { grid-template-columns: 1fr; }
 }
