@@ -8,28 +8,27 @@
 </head>
 <body>
 
-<div class="bg-animation"></div>
-
 <div class="wrapper">
     <div class="container">
-
-        <h1 class="neon-text">Face Accessory Detection System</h1>
+        <h1>Real-Time AI Face Accessory Detection System</h1>
 
         <div class="input-options">
-            <button id="startCameraBtn" onclick="initWebcam()">Start Camera</button>
+            <button onclick="initWebcam()">Start Camera</button>
 
             <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(event)">
             <label for="imageUpload" class="custom-file-upload">Choose File</label>
         </div>
 
         <div class="main-content">
-            <div class="webcam-section card-glow">
+            <!-- INPUT -->
+            <div class="card-glow">
                 <div class="card-header">Input Image</div>
                 <div id="webcam-container"></div>
                 <canvas id="uploadedImageCanvas" style="display:none;"></canvas>
             </div>
 
-            <div class="results-section card-glow">
+            <!-- RESULTS -->
+            <div class="card-glow">
                 <div class="card-header">Detection Results</div>
                 <div id="label-container"></div>
             </div>
@@ -38,8 +37,8 @@
 
     <footer class="footer">
         <p>
-            Developed by <span class="names">Arfah, Camelia, Haziqah, Syamimi</span> |
-            BITI1113 AI Project &copy; 2025
+            Developed by <span class="names">Arfah, Camelia, Haziqah, Syamimi</span>
+            | BITI1113 AI Project © 2025
         </p>
     </footer>
 </div>
