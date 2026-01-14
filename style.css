@@ -38,7 +38,6 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* Cari bahagian ini dalam CSS anda dan tambah baris color */
 button,
 .custom-file-upload {
     background: var(--accent-gold);
@@ -47,15 +46,13 @@ button,
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    color: black; /* Tambah baris ini untuk jadikan tulisan hitam */
-    display: inline-block; /* Tambahan supaya padding label berfungsi dengan betul */
-}
+    color: black;
+    display: inline-block;
 
-/* Kemas kini hover supaya tulisan bertukar putih/emas bila background jadi hitam */
 button:hover,
 .custom-file-upload:hover {
     background: black;
-    color: var(--accent-gold); /* Tulisan bertukar warna emas bila hover */
+    color: var(--accent-gold); 
 }
 
 input[type="file"] {
