@@ -1,38 +1,27 @@
 const URL = "./model/";
-
 let model, webcam, labelContainer, maxPredictions;
 let currentMode = "webcam";
 
 async function loadModel() {
-    model = await tmImage.load(
-        URL + "model.json?v=2",
-        URL + "metadata.json?v=2"
-    );
-
+    model = await tmImage.load(URL + "model.json", URL + "metadata.json");
     maxPredictions = model.getTotalClasses();
     labelContainer = document.getElementById("label-container");
     labelContainer.innerHTML = "";
-
-    console.log("Loaded labels:", model.getClassLabels());
 
     model.getClassLabels().forEach(label => {
         const item = document.createElement("div");
         item.className = "prediction-item";
         item.innerHTML = `
-            <div class="class-label">
-                <span>${label}</span>
-                <span class="pct-text">0%</span>
-            </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar"></div>
-            </div>
-        `;
+            <div class="class-label"><span>${label}</span><span class="pct-text">0%</span></div>
+            <div class="progress-bar-container"><div class="progress-bar"></div></div>`;
         labelContainer.appendChild(item);
     });
 }
 
 async function initWebcam() {
     if (webcam) await webcam.stop();
+    document.getElementById("uploadedImageCanvas").style.display = "none";
+    document.getElementById("webcam-container").style.display = "block";
 
     webcam = new tmImage.Webcam(400, 400, true);
     await webcam.setup();
@@ -40,8 +29,6 @@ async function initWebcam() {
 
     document.getElementById("webcam-container").innerHTML = "";
     document.getElementById("webcam-container").appendChild(webcam.canvas);
-
-    document.getElementById("uploadedImageCanvas").style.display = "none";
     currentMode = "webcam";
     window.requestAnimationFrame(loop);
 }
@@ -59,15 +46,13 @@ async function handleImageUpload(event) {
     reader.onload = e => {
         const img = new Image();
         img.onload = async () => {
+            if (webcam) await webcam.stop();
+            document.getElementById("webcam-container").style.display = "none";
             const canvas = document.getElementById("uploadedImageCanvas");
-            const ctx = canvas.getContext("2d");
-            canvas.width = 400;
-            canvas.height = 400;
-            ctx.drawImage(img, 0, 0, 400, 400);
-
             canvas.style.display = "block";
-            document.getElementById("webcam-container").innerHTML = "";
-
+            const ctx = canvas.getContext("2d");
+            canvas.width = 400; canvas.height = 400;
+            ctx.drawImage(img, 0, 0, 400, 400);
             currentMode = "image";
             await predict(canvas);
         };
@@ -78,14 +63,31 @@ async function handleImageUpload(event) {
 
 async function predict(input) {
     const prediction = await model.predict(input);
+    let maskProb = 0, glassesProb = 0, hatProb = 0;
 
     prediction.forEach((p, i) => {
         const percent = (p.probability * 100).toFixed(0) + "%";
         const item = labelContainer.children[i];
-
         item.querySelector(".pct-text").innerText = percent;
         item.querySelector(".progress-bar").style.width = percent;
+
+        if (p.className.includes("mask")) maskProb = p.probability;
+        if (p.className.includes("glasses") || p.className.includes("spec")) glassesProb = p.probability;
+        if (p.className.includes("hat")) hatProb = p.probability;
     });
+
+    const threshold = 0.35;
+    const hasMask = maskProb > threshold;
+    const hasGlasses = glassesProb > threshold;
+    const hasHat = hatProb > threshold;
+
+    let results = [];
+    if (hasMask) results.push("Mask 😷");
+    if (hasGlasses) results.push("Glasses 👓");
+    if (hasHat) results.push("Hat 🧢");
+
+    document.getElementById("final-status").innerText = 
+        results.length > 0 ? "Detected: " + results.join(" + ") : "4. No Accessories 👤";
 }
 
 window.onload = loadModel;
