@@ -13,35 +13,39 @@
 <div class="wrapper">
     <div class="container">
 
-        <!-- 🔹 TITLE KEKAL -->
         <h1 class="neon-text">Face Accessory Detection System</h1>
-        <p class="subheading">
-            Real-Time AI Detection for Mask, Glasses, Hat & No Accessories
-        </p>
 
-        <!-- 🔹 BUTTON KEKAL (JANGAN BUANG) -->
         <div class="input-options">
             <button id="startCameraBtn" onclick="initWebcam()">Start Camera</button>
 
             <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(event)">
-            <label for="imageUpload" class="upload-label">Choose File</label>
+            <label for="imageUpload" class="custom-file-upload">Choose File</label>
         </div>
 
-        <!-- 🔹 RESULT KEKAL -->
-        <div class="prediction">
-            <h2>Prediction</h2>
-            <p id="result">-</p>
+        <div class="main-content">
+            <div class="webcam-section card-glow">
+                <div class="card-header">Input Image</div>
+                <div id="webcam-container"></div>
+                <canvas id="uploadedImageCanvas" style="display:none;"></canvas>
+            </div>
+
+            <div class="results-section card-glow">
+                <div class="card-header">Detection Results</div>
+                <div id="label-container"></div>
+            </div>
         </div>
-
-        <!-- 🔹 CAMERA DISPLAY KEKAL -->
-        <video id="webcam" autoplay playsinline width="400" height="300"></video>
-        <canvas id="canvas" width="400" height="300" hidden></canvas>
-
     </div>
+
+    <footer class="footer">
+        <p>
+            Developed by <span class="names">Arfah, Camelia, Haziqah, Syamimi</span> |
+            BITI1113 AI Project &copy; 2025
+        </p>
+    </footer>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.2.0/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 <script src="script.js"></script>
 
 </body>
