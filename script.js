@@ -88,7 +88,7 @@ async function predict(input) {
     if (hasHat) results.push("Hat 🧢");
 
     document.getElementById("final-status").innerText = 
-        results.length > 0 ? "Detected: " + results.join(" + ") : "4. No Accessories 👤";
+        results.length > 0 ? "Detected: " + results.join(" + ") : "No Accessories 👤";
 }
 
 window.onload = loadModel;
